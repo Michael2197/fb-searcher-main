@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Lookup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Particle Background */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #232526, #414345);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            animation: gradientBG 10s ease infinite;
+        }
+
+        /* Background Animation */
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Particle Effect */
+        .particle-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: particleMotion 30s linear infinite;
+        }
+
+        @keyframes particleMotion {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 500px 500px;
+            }
+        }
+
+        /* Container Styling */
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.5s ease-out;
+            text-align: center;
+            width: 400px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            animation: textGlow 2s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+
+            100% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        select,
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+
+        select:focus,
+        input:focus {
+            border-color: #4facfe;
+            box-shadow: 0px 0px 10px rgba(72, 198, 239, 0.5);
+            outline: none;
+        }
+
+        /* Neon Button Styling */
+      /* Animation property */
+button {
+  animation: wiggle 1.5s linear infinite; /* Set the animation duration to 1.5 seconds */
+}
+
+/* Keyframes */
+@keyframes wiggle {
+  0%, 7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-15deg);
+  }
+  20% {
+    transform: rotateZ(10deg);
+  }
+  25% {
+    transform: rotateZ(-10deg);
+  }
+  30% {
+    transform: rotateZ(6deg);
+  }
+  35% {
+    transform: rotateZ(-4deg);
+  }
+  40%, 100% {
+    transform: rotateZ(0);
+  }
+}
+
+button {
+    background: linear-gradient(135deg, #6f86d6, #48c6ef);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0px 0px 15px rgba(72, 198, 239, 0.7), 0px 0px 20px rgba(72, 198, 239, 0.5);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #48c6ef, #6f86d6);
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 30px rgba(72, 198, 239, 1), 0px 10px 50px rgba(72, 198, 239, 0.7);
+}
+
+        /* Footer Styling */
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #ddd;
+            position: relative;
+            z-index: 1;
+            padding-top: 20px; /* Add some padding to separate it from the main content */
+        }
+
+        .footer a {
+            color: #48c6ef;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 420px) {
+            .container {
+                width: 90%;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particle-bg"></div> <!-- Particle effect background -->
+
+    <div class="container">
+        <h1>Facebook Lookup</h1>
+
+        <!-- Search Form -->
+        <form action="search.php" method="post">
+            <select id="search-option" name="search_option">
+                <option value="id">Search by ID</option>
+                <option value="first_name">Search by Phone number</option>
+            </select>
+
+            <!-- ID Search Input -->
+            <div id="id-search" style="display: block;">
+                <input type="number" name="search_id" placeholder="Enter Numeric Facebook ID">
+            </div>
+
+            <!-- First Name Search Input -->
+            <div id="first-name-search" style="display: none;">
+                <input type="text" name="first_name" placeholder="+20100000000">
+            </div>
+
+            <button type="submit">Search</button>
+        </form>
+
+        <hr>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2024 Venom. All rights reserved. | Discord: <strong>mr.venom</strong> |
+                <a href="https://www.tiktok.com/@thetruevenom" target="_blank">TikTok</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Toggle search options
+        const searchOption = document.getElementById('search-option');
+        const idSearch = document.getElementById('id-search');
+        const firstNameSearch = document.getElementById('first-name-search');
+
+        searchOption.addEventListener('change', function () {
+            if (this.value === 'first_name') {
+                idSearch.style.display = 'none';
+                firstNameSearch.style.display = 'block';
+            } else {
+                idSearch.style.display = 'block';
+                firstNameSearch.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
